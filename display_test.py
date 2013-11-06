@@ -44,7 +44,7 @@ rotate = Vector((0,0,1))
 frames = ((ihat, jhat), (khat, jhat), (ihat, khat))
 index  = 0
 timer  = pygame.time.Clock()
-
+vector = vector.rotate(Vector((45,0,0)))
 screen.fill((255,255,255))
 
 running = True
@@ -55,18 +55,15 @@ while running:
             if event.key == K_ESCAPE:
                 running = False
             if event.key == K_UP:
-                screen.fill((255,255,255))
-                img   = renderVector2D(vector, scale=4, frame=frames[index])
                 index = (index + 1) % 3
-                screen.blit(img, (screen.get_width()/2-img.get_width()/2, screen.get_height()/2-img.get_height()/2))
             elif event.key == K_DOWN:
-                screen.fill((255,255,255))
-                img   = renderVector2D(vector, scale=4, frame=frames[index])
                 index = (index - 1) % 3
-                screen.blit(img, (screen.get_width()/2-img.get_width()/2, screen.get_height()/2-img.get_height()/2))
         elif event.type == QUIT:
             running = False
-    vector.rotate(rotate)
+    vector = vector.rotate(rotate)
+    img   = renderVector2D(vector, scale=4, frame=frames[index])
+    screen.fill((255,255,255))
+    screen.blit(img, (screen.get_width()/2-img.get_width()/2, screen.get_height()/2-img.get_height()/2))
     pygame.display.flip()
     timer.tick(30)
 pygame.quit()
